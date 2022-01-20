@@ -1,0 +1,38 @@
+<!-- this is layout using ejsMate package -->
+<% layout('layouts/boilerplate') %>
+<div id="cluster-map"></div>
+<h1>All Campgrounds</h1>
+<% for(let campground of campgrounds){ %>
+<div class="card mb-3">
+  <div class="row">
+    <div class="col-md-4">
+      <% if(campground.images.length){ %>
+      <img class="img-fluid" src="<%= campground.images[0].url %> " alt="" />
+      <% }else{ %>
+      <img
+        class="img-fluid"
+        src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.internetandtechnologylaw.com%2Fchat-bot-legal-issues%2F&psig=AOvVaw2aHBefkUP8kB4vSk4gBfDm&ust=1641221563898000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCPi6v_iok_UCFQAAAAAdAAAAABAD "
+        alt=""
+      />
+      <% } %>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><%= campground.title %></h5>
+        <p class="card-text">
+          <small class="text-muted"><%= campground.location %> </small>
+        </p>
+        <a href="/campgrounds/<%= campground._id %> " class="btn btn-primary"
+          >View <%= campground.title %>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<% } %>
+
+<script>
+  const mapToken = "<%- process.env.MAPBOX_TOKEN %>";
+  const campgrounds= {features:<%- JSON.stringify(campgrounds) %>};
+</script>
+<script src="/javascripts/clusterMap.js"></script>
